@@ -19,7 +19,7 @@ public class HeroesService {
     }
 
     public Mono<Heroes> findHeroById(String id){
-        return Mono.justOrEmpty( this.heroesRepository.findById( id ) );
+        return Mono.justOrEmpty(this.heroesRepository.findById(id));
     }
 
     public Mono<Heroes> save(Heroes heroes){

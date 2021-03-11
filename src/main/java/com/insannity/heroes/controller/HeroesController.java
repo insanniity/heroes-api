@@ -35,10 +35,12 @@ public class HeroesController {
         return heroesService.findAll();
     }
 
-    @GetMapping(HEROES_ENDPOINT_LOCAL+"/id")
-    public Mono<ResponseEntity<Heroes>> findHeroById(@PathVariable String id){
-        log.info( "Request Hero with id {}", id );
-        return heroesService.findHeroById( id ).map((item)-> new ResponseEntity<>( item, HttpStatus.OK )).defaultIfEmpty(new ResponseEntity<>( HttpStatus.NOT_FOUND )  );
+    @GetMapping(HEROES_ENDPOINT_LOCAL + "/{id}")
+    public Mono<ResponseEntity<Heroes>> findByIdHero(@PathVariable String id) {
+        log.info("Requesting the hero with id {}", id);
+        return heroesService.findHeroById(id)
+                .map((item) -> new ResponseEntity<>(item, HttpStatus.OK))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
@@ -49,12 +51,12 @@ public class HeroesController {
         return heroesService.save(heroes);
     }
 
-    @DeleteMapping(HEROES_ENDPOINT_LOCAL+"/id")
-    @ResponseStatus(code=HttpStatus.CONTINUE)
-    public Mono<HttpStatus> deleteHeroById(@PathVariable String id){
+    @DeleteMapping(HEROES_ENDPOINT_LOCAL + "/{id}")
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public Mono<HttpStatus> deletebyIDHero(@PathVariable String id) {
         heroesService.deleteHeroById(id);
-        log.info( "Hero {} has bem deleted", id);
-        return Mono.just( HttpStatus.CONTINUE);
+        log.info("Deleting the hero with id {}", id);
+        return Mono.just(HttpStatus.NOT_FOUND);
     }
 
 
