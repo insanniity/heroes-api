@@ -1,5 +1,9 @@
 package com.insannity.heroes.config;
 
+import static com.insannity.heroes.constans.HeroesConstant.HEROES_ENDPOINT_LOCAL;
+import static com.insannity.heroes.constans.HeroesConstant.ENDPOINT_DYNAMO;
+import static com.insannity.heroes.constans.HeroesConstant.REGION_DYNAMO;
+
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -21,7 +25,7 @@ import java.util.Arrays;
 public class HeroesTable {
    public static void main(String[] args) throws Exception{
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-                .withEndpointConfiguration( new AwsClientBuilder.EndpointConfiguration())
+                .withEndpointConfiguration( new AwsClientBuilder.EndpointConfiguration(ENDPOINT_DYNAMO, REGION_DYNAMO))
                 .build();
         DynamoDB dynamoDB = new DynamoDB( client );
 
